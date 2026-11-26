@@ -1,0 +1,70 @@
+[package]
+name = "pmtchat"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+name = "pmtchat_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[build]
+target-dir = "C:/Users/Admin/Desktop/PMTChat/rust-target"
+jobs = 2
+
+[dependencies]
+# Tauri
+tauri = { version = "2", features = ["tray-icon"] }
+
+# Tauri plugins
+tauri-plugin-opener = "2"
+tauri-plugin-notification = "2"
+tauri-plugin-shell = "2"
+tauri-plugin-autostart = "2"
+
+# Serialization
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# Encryption
+aes-gcm = "0.10"
+rand = "0.8"
+sha2 = "0.10"
+x25519-dalek = { version = "2", features = ["static_secrets"] }
+
+# Encoding
+base64 = "0.22"
+
+# Database
+rusqlite = { version = "0.32", features = ["bundled"] }
+
+# Date and time
+chrono = { version = "0.4", features = ["serde"] }
+
+# Networking and peer discovery
+socket2 = "0.5"
+crossbeam-channel = "0.5"
+network-interface = "2"
+tiny_http = "0.12"
+
+# Screen capture and image processing
+scrap = "0.5"
+image = { version = "0.24", default-features = false, features = ["png"] }
+
+# HTTP requests
+reqwest = { version = "0.12", default-features = false, features = ["blocking", "rustls-tls"] }
+
+# Utilities
+uuid = { version = "1", features = ["v4", "serde"] }
+hostname = "0.4"
+dirs = "5"
+
+# Read the optimization guideline for more details: https://tauri.app/concept/size/#cargo-configuration
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = 3
+panic = "abort"
+strip = true
